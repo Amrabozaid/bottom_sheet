@@ -22,7 +22,9 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
   }
 
   String? _valdiatePassword(String? value){
-    if (value == null || value.isEmpty){return "Password is required";}else{return null;}
+    if (value == null || value.isEmpty){return "Password is required";}
+    if (value.length<8) {return "Password must exceed 8 characters";}
+    else{return null;}
   }
 
   void _submit() {
@@ -38,104 +40,109 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Form(
-        key: _formKey,
-        child:  Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Form(
+          key: _formKey,
+          child:  SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Welcome back!!!',style: TextStyle(fontSize: 14)),
-                    SizedBox(height: 4),
-                    Text('Login',style: TextStyle(fontSize: 24))
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Welcome back!!!',style: TextStyle(fontSize: 14)),
+                        SizedBox(height: 4),
+                        Text('Login',style: TextStyle(fontSize: 24))
+                      ],
+                    ),
+            
+                    IconButton(onPressed:() {Navigator.pop(context);}, icon: const Icon(Icons.close))
+            
                   ],
                 ),
-
-                IconButton(onPressed:() {Navigator.pop(context);}, icon: const Icon(Icons.close))
-
-              ],
-            ),
-            const SizedBox(height: 10),
-            
-            TextFormField(
-              decoration:  InputDecoration(
-                border: const OutlineInputBorder(),
-                hintText: "Username/email",
-                labelText: "Username/email",
-                suffixIcon: IconButton(onPressed: (){
-              _obsecureUserName=!_obsecureUserName;
-              setState((){});},
-              icon:_obsecureUserName ? const Icon(Icons.visibility):const Icon(Icons.visibility_off))
+                const SizedBox(height: 10),
+                
+                TextFormField(
+                  decoration:  InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: "Username/email",
+                    labelText: "Username/email",
+                    suffixIcon: IconButton(onPressed: (){
+                  _obsecureUserName=!_obsecureUserName;
+                  setState((){});},
+                  icon:_obsecureUserName ? const Icon(Icons.visibility):const Icon(Icons.visibility_off))
+                    ),
+                  controller: _userNameController,
+                  obscureText: _obsecureUserName,
+                  validator:  _valdiateUserName,
                 ),
-              controller: _userNameController,
-              obscureText: _obsecureUserName,
-              validator:  _valdiateUserName,
-            ),
-            const SizedBox(height: 10),
-
-            TextFormField(
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                hintText: "Password",
-                labelText: "Password",
-                suffixIcon: IconButton(onPressed: (){
-                  _obsecurePassword=!_obsecurePassword;
-                  setState((){});
-                },
-              icon:_obsecurePassword ? const Icon(Icons.visibility):const Icon(Icons.visibility_off))
-              ),
-              controller: _passwordController,
-              obscureText: _obsecurePassword,
-              validator: _valdiatePassword,
-            ),
-            const SizedBox(height: 30),
-            SizedBox(width: double.infinity, child:ElevatedButton(onPressed: _submit, child: const Text("Login"))),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-              Row(
-                children: [
-                  Checkbox(
-                    value: _isChecked,
-                    onChanged: (bool? newValue) {
-                      setState(() {
-                        _isChecked = newValue ?? false;
-                      });
+                const SizedBox(height: 10),
+            
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: "Password",
+                    labelText: "Password",
+                    suffixIcon: IconButton(onPressed: (){
+                      _obsecurePassword=!_obsecurePassword;
+                      setState((){});
                     },
+                  icon:_obsecurePassword ? const Icon(Icons.visibility):const Icon(Icons.visibility_off))
                   ),
-                  const Text("Remember me")
-                ]
-              ),
-              const Text('Forgot password?',style: TextStyle(decoration: TextDecoration.underline))
-              ]
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("not a user yet? "),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                      showModalBottomSheet(
-                        context: context, 
-                        builder: (BuildContext context1){return RegisterBottomSheet();}, 
-                        // isScrollControlled: true
-                      );
-                    },
-                    child: const Text("Register",style: TextStyle(color: Colors.red))
-                  )
+                  controller: _passwordController,
+                  obscureText: _obsecurePassword,
+                  validator: _valdiatePassword,
+                ),
+                const SizedBox(height: 30),
+                SizedBox(width: double.infinity, child:ElevatedButton(onPressed: _submit, child: const Text("Login"))),
+            
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: _isChecked,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            _isChecked = newValue ?? false;
+                          });
+                        },
+                      ),
+                      const Text("Remember me")
+                    ]
+                  ),
+                  const Text('Forgot password?',style: TextStyle(decoration: TextDecoration.underline))
+                  ]
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("not a user yet? "),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          showModalBottomSheet(
+                            context: context, 
+                            builder: (BuildContext context1){return RegisterBottomSheet();}, 
+                            // isScrollControlled: true
+                          );
+                        },
+                        child: const Text("Register",style: TextStyle(color: Colors.red))
+                      )
+                  ],
+                )
               ],
-            )
-          ],
+            ),
+          ),
+          
         ),
-        
       ),
     );
   }
