@@ -41,6 +41,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber[100],
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -100,7 +101,12 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                   validator: _valdiatePassword,
                 ),
                 const SizedBox(height: 30),
-                SizedBox(width: double.infinity, child:ElevatedButton(onPressed: _submit, child: const Text("Login"))),
+                SizedBox(height: 50,width: double.infinity, child:ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),backgroundColor: Colors.black
+                  ),
+                  onPressed: _submit, child: Text("Login",style: TextStyle(color: Colors.amber[100]))
+                )),
             
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

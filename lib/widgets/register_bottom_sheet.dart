@@ -57,7 +57,8 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return Scaffold(
+      backgroundColor: Colors.amber[100],
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -152,11 +153,14 @@ class _RegisterBottomSheetState extends State<RegisterBottomSheet> {
                 ),
                 
                 const SizedBox(height: 20),
-                SizedBox(width: double.infinity, child:ElevatedButton(
-                  onPressed:_submit, child: const Text("Register")
+                SizedBox(height: 50,width: double.infinity, child:ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),backgroundColor: Colors.black
+                  ),
+                  onPressed:_submit, child: Text("Register",style: TextStyle(color: Colors.amber[100]),)
                   )
                 ),
-            
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
