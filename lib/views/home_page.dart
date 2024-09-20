@@ -16,13 +16,19 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Image.asset('..../assets/asset1.png'),
-            const SizedBox(height: 20),
+            Image.asset('assets/asset1.png'),
+            const Text("Welcome",style: TextStyle(fontSize: 24,fontWeight: FontWeight.w500,color: Colors.red),),
+            const Text(
+              "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit, sed\ndo eiusmod",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Color.fromARGB(255, 218, 249, 255),fontSize: 15)
+              ),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 height: 50,
-                width: double.infinity,
+                width: 300,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),backgroundColor: Colors.amber[400]
@@ -30,7 +36,7 @@ class HomePage extends StatelessWidget {
                   onPressed: () {
                   showModalBottomSheet(
                     context: context, 
-                    builder: (context)=> RegisterBottomSheet(), 
+                    builder: (context)=> const RegisterBottomSheet(), 
                   );
                 }, child:const Text("Create Account",style:TextStyle(fontSize: 20,color: Colors.black),)),
               ),
@@ -39,12 +45,12 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 height: 50,
-                width: double.infinity,
+                width: 300,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
-                      side: BorderSide(color: Colors.amber,width: 2)
+                      side: const BorderSide(color: Colors.amber,width: 2)
                     ),
                       backgroundColor: Colors.black
                   ),
